@@ -6,15 +6,18 @@
     
 <body>
     <div id='coords'>[0,0]</div>
-    <div id='room'>ROOM []</div>
+    <div id='room'>[]</div>
+    
     <script>
-        var map = [];
-        var bd = {name:'thing'};
+    	var rooms = [];
         var coords = {x:0,y:0};
+        
+        //KB INPUT
         document.addEventListener('keydown',function(event)
         {
         	if (event){action(event)}
         });
+        
         //TOOLS
         function getDiv(id,txt)
         {
@@ -30,18 +33,16 @@
                 case 'ArrowDown': coords.y-=1;break;
                 case 'ArrowLeft': coords.x-=1;break;
                 case 'ArrowRight': coords.x+=1;break;
-                case 'b':build();break;
             }
             getDiv('coords','['+coords.x+','+coords.y+']');
         }
         
-        //INSTANCE ROOMS
+        //ROOMS
         class Room
         {
-        	constructor(name,owner,x,y,builds)
+        	constructor(player,x,y,builds)
             {
-            	this.name = name;
-                this.owner = owner;
+                this.player = player;
                 this.x = x;
                 this.y = y;
                 this.builds = builds;
@@ -49,15 +50,17 @@
             
             init()
             {
-            	getDiv('room','ROOM [' + this.name + ',' + this.owner + ',' + this.builds + ']');
+            	getDiv('room','[' + this.player + ' ' + this.builds + ']');
+                rooms.push(this);
             }
         }
         
-        //GAME START
+        
+        //GAME
         function start()
         {
-        	var lobby = new Room('Lobby','System',0,0,'Pod');
-            lobby.init();
+        	var home = new Room('me',0,0,'pod');
+            home.init();
         }
         
         start();
