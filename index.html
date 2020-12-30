@@ -6,20 +6,23 @@
     
 <body>
     <div id='coords'>[0,0]</div>
+    <div id='builds'>BDS []</div>
     <script>
         var map = [];
+        var bd = {name:'thing'};
         var coords = {x:0,y:0};
         document.addEventListener('keydown',function(event)
         {
-        	if (event){move(event)}
+        	if (event){action(event)}
         });
-        
+        //TOOLS
         function getDiv(id,txt)
         {
         	document.getElementById(id).innerHTML = txt;
         }
         
-        function move(e)
+        //ACTIONS
+        function action(e)
         {
         	switch (e.key)
             {
@@ -27,8 +30,14 @@
                 case 'ArrowDown': coords.y-=1;break;
                 case 'ArrowLeft': coords.x-=1;break;
                 case 'ArrowRight': coords.x+=1;break;
+                case 'b':build();break;
             }
             getDiv('coords','['+coords.x+','+coords.y+']');
+        }
+        
+        function build()
+        {
+        	getDiv('builds','BDS ['+bd.name+']');
         }
     </script>
     
