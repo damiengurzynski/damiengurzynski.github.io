@@ -5,11 +5,19 @@
 </head>
     
 <body>
-    //DIVS
     <div>YES</div>
-    //JS
     <script>
         var map = [];
+        
+        document.addEventListener('keypress',move(e));
+        
+        function move()
+        {
+            if (e.key == 'upArrow')
+            {
+                console.log('up');
+            }
+        }
     </script>
     
     
