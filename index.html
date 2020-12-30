@@ -6,7 +6,7 @@
     
 <body>
     <div id='coords'>[0,0]</div>
-    <div id='builds'>BDS []</div>
+    <div id='room'>ROOM []</div>
     <script>
         var map = [];
         var bd = {name:'thing'};
@@ -35,10 +35,32 @@
             getDiv('coords','['+coords.x+','+coords.y+']');
         }
         
-        function build()
+        //INSTANCE ROOMS
+        class Room
         {
-        	getDiv('builds','BDS ['+bd.name+']');
+        	constructor(name,owner,x,y,builds)
+            {
+            	this.name = name;
+                this.owner = owner;
+                this.x = x;
+                this.y = y;
+                this.builds = builds;
+            }
+            
+            init()
+            {
+            	getDiv('room','ROOM [' + this.name + ',' + this.owner + ',' + this.builds + ']');
+            }
         }
+        
+        //GAME START
+        function start()
+        {
+        	var lobby = new Room('Lobby','System',0,0,'Pod');
+            lobby.init();
+        }
+        
+        start();
     </script>
     
     
