@@ -6,14 +6,18 @@
 <input id = 'speed' placeholder='speed (min=10 max=1000)'>
 <button onclick='start()'>build</button>
 .........
-<button onclick='loop = setInterval(function(){checkN();life()},speed);'>start</button>
+<button onclick='clearInterval(loop);loop = setInterval(function(){checkN();life()},speed);'>start</button>
 <button onclick='clearInterval(loop)'>pause</button>
-<button onclick='start()'>clear</button>
+<button onclick='clearmap()'>clear</button>
 .........
 <input id='save' placeholder='save code'>
 <button onclick='savemap()'>save</button>
 <input id='load' placeholder='load code'>
 <button onclick='loadmap()'>load</button>
+</br></br></br>
+<button id='select' onclick='select()'>select</button>
+<button id='copy' onclick='copy()'>copy</button>
+<button id='paste' onclick='paste()'>paste</button>
 <div id='map'></div>
 </br></br>
 <script>
@@ -26,16 +30,101 @@ let killlist = [];
 let birthlist = [];
 let loop;
 let gamemap = document.getElementById('map');
+let sel = false;
+let cop = false;
+let past = false;
+let objsel = [];
 
-function start(){gamemap.innerHTML = '';clearInterval(loop);size = document.getElementById('size').value;speed = document.getElementById('speed').value;init()}
+function start()
+{
+  gamemap.innerHTML = '';
+  clearInterval(loop);
+  size = document.getElementById('size').value;
+  speed = document.getElementById('speed').value;init()
+}
 
-function createCell(){var x = document.createElement("INPUT");x.setAttribute("type", "checkbox");gamemap.appendChild(x);return x}
+function createCell(i,j)
+{
+  var x = document.createElement("INPUT");
+  x.setAttribute("type", "checkbox");
+  x.id = [i,j];
+  x.addEventListener('mousedown',function(e)
+  {
+    let cellid = x.id.split(',');
+    let celli = parseInt(cellid[0]);
+    let cellj = parseInt(cellid[1]);
+    let newcell = [celli,cellj];
+    let diff = [];
+    let targ = [];
+    if (sel)
+    {
+      if (x.style.opacity == '0.2')
+      {
+        x.style.opacity = '1';
+        x.click(function(e){e.preventDefault()});
+        objsel.forEach(function(e,i,o){if (e[0] == celli && e[1] == cellj){o.splice(i,1)}});
+      }
+      else
+      {
+        x.style.opacity = '0.2';
+        x.click(function(e){e.preventDefault()});
+        objsel.push([celli,cellj]);
+      }
+    }
+    if (past)
+    {
+      x.style.cursor = 'default';
+      diff = [newcell[0] - objsel[0][0],newcell[1] - objsel[0][1]];
+      
+      for (let i = 0; i < objsel.length; i++)
+      {
+        x.click(function(e){e.preventDefault()});
+        let targi = objsel[i][0] + diff[0];
+        let targj = objsel[i][1] + diff[1];
+        targ = [targi,targj];
+        map[targ[0]][targ[1]].checked = true;
+      }
+      past = false;
+    }
+  });
+  x.addEventListener('mouseover',function()
+  {
+    if (past){x.style.cursor = 'copy'}
+    else if (sel){x.style.cursor = 'pointer'}
+    else {x.style.cursor = 'default'}
+  });
+  gamemap.appendChild(x);
+  return x
+}
 
-function createBr(){var x = document.createElement('br');gamemap.appendChild(x)}
+function createBr()
+{
+  var x = document.createElement('br');
+  gamemap.appendChild(x)
+}
 
-function init(){for (let i = 0; i < size; i++){for (let j = 0; j < size; j++){map[i][j] = createCell()}createBr()}}
+function init()
+{
+  for (let i = 0; i < size; i++)
+  {
+    for (let j = 0; j < size; j++)
+    {
+      map[i][j] = createCell(i,j)
+    }
+    createBr()
+  }
+}
 
-function clear(){for (let i = 0; i < size; i++){for (let j = 0; j < size; j++){map[i][j].checked = false}}}
+function clearmap()
+{
+  for (let i = 0; i < size; i++)
+  {
+    for (let j = 0; j < size; j++)
+    {
+      map[i][j].checked = false
+    }
+  }
+}
 
 function savemap()
 {
@@ -50,7 +139,7 @@ function loadmap()
   let joined = [];
   savedmap = document.getElementById('load').value;
   savedmap = savedmap.split(',');
-  savedmap.forEach(function(e){let p = parseInt(e,10);parsed.push(p)});
+  savedmap.forEach(function(e){let p = parseInt(e);parsed.push(p)});
   size = parsed[0];
   speed = parsed[1];
   parsed = parsed.splice(2,parsed.length);
@@ -65,6 +154,40 @@ function loadmap()
   document.getElementById('load').value = '';
   document.getElementById('save').value = '';
   savedmap = [];
+}
+
+function select()
+{
+  if (!sel){sel = true}
+  else
+  {
+    sel = false;
+    for (let i = 0; i < objsel.length; i++)
+    {
+      map[objsel[i][0]][objsel[i][1]].style.opacity = '1';
+    }
+    objsel = [];
+  }
+}
+
+function copy()
+{
+  if (!cop)
+  {
+    sel = false;
+    for (let i = 0; i < objsel.length; i++)
+    {
+      map[objsel[i][0]][objsel[i][1]].style.opacity = '1';
+    }
+    cop = true;
+  }
+  else {cop = false;sel = false}
+}
+
+function paste()
+{
+  if (!past && cop){past = true;cop = false;sel = false}
+  else {past = false;sel = false}
 }
 
 function checkN()
@@ -88,7 +211,13 @@ function checkN()
   }
 }
 
-function life(){killlist.forEach(function(i){map[i[0]][i[1]].checked = false});birthlist.forEach(function(i){map[i[0]][i[1]].checked = true});killlist = [];birthlist = []}
+function life()
+{
+  killlist.forEach(function(i){map[i[0]][i[1]].checked = false});
+  birthlist.forEach(function(i){map[i[0]][i[1]].checked = true});
+  killlist = [];
+  birthlist = []
+}
 </script>
 </body>
 </html>
