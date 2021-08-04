@@ -5,9 +5,15 @@
 <input id='size' placeholder='map size (one number)'>
 <input id = 'speed' placeholder='speed (min=10 max=1000)'>
 <button onclick='start()'>build</button>
+.........
 <button onclick='loop = setInterval(function(){checkN();life()},speed);'>start</button>
 <button onclick='clearInterval(loop)'>pause</button>
 <button onclick='start()'>clear</button>
+.........
+<input id='save' placeholder='save code'>
+<button onclick='savemap()'>save</button>
+<input id='load' placeholder='load code'>
+<button onclick='loadmap()'>load</button>
 <div id='map'></div>
 </br></br>
 <script>
@@ -15,6 +21,7 @@ let size = 100;
 let speed = 100;
 let n = 0;
 let map = Array.from(Array(size), ()=>new Array(size));
+let savedmap = [];
 let killlist = [];
 let birthlist = [];
 let loop;
@@ -29,6 +36,33 @@ function createBr(){var x = document.createElement('br');gamemap.appendChild(x)}
 function init(){for (let i = 0; i < size; i++){for (let j = 0; j < size; j++){map[i][j] = createCell()}createBr()}}
 
 function clear(){for (let i = 0; i < size; i++){for (let j = 0; j < size; j++){map[i][j].checked = false}}}
+
+function savemap()
+{
+  savedmap.push(size);
+  savedmap.push(speed);
+  for (let i = 0; i < size; i++){for (let j = 0; j < size; j++){if (map[i][j].checked){savedmap.push([i,j]);document.getElementById('save').value = savedmap}}}
+}
+
+function loadmap()
+{
+  let parsed = [];
+  let joined = [];
+  savedmap = document.getElementById('load').value;
+  savedmap = savedmap.split(',');
+  savedmap.forEach(function(e){let p = parseInt(e,10);parsed.push(p)});
+  size = parsed[0];
+  speed = parsed[1];
+  parsed = parsed.splice(2,parsed.length);
+
+  gamemap.innerHTML = '';
+  clearInterval(loop);
+  init();
+
+  for (let i = 0; i < parsed.length; i+=2){joined.push([parsed[i],parsed[i+1]])};
+  savedmap = joined;
+  savedmap.forEach(function(e){map[e[0]][e[1]].checked = true});
+}
 
 function checkN()
 {
