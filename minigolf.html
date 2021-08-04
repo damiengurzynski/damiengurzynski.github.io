@@ -62,6 +62,8 @@ function loadmap()
   for (let i = 0; i < parsed.length; i+=2){joined.push([parsed[i],parsed[i+1]])};
   savedmap = joined;
   savedmap.forEach(function(e){map[e[0]][e[1]].checked = true});
+  document.getElementById('load').value = '';
+  document.getElementById('save').value = '';
 }
 
 function checkN()
