@@ -64,6 +64,7 @@ function loadmap()
   savedmap.forEach(function(e){map[e[0]][e[1]].checked = true});
   document.getElementById('load').value = '';
   document.getElementById('save').value = '';
+  savedmap = [];
 }
 
 function checkN()
