@@ -1,30 +1,47 @@
 <!DOCTYPE html>
-<html>
-<p style='font-family:monospace'>A barebones, scalable, Game of Life sandbox with HTML checkboxes (yes).</p>
+<html style='font-family:monospace'>
+<p style='font-family:monospace'>A Game of Life sandbox with HTML checkboxes (yes).</p>
 <body style='white-space: nowrap;background-color:lightGrey'>
-<input id='size' placeholder='map size (one number)'>
-<input id = 'speed' placeholder='speed (min=10 max=1000)'>
+size <input id='size' placeholder='map size (one number)' value='20'>
+speed <input id = 'speed' placeholder='speed (min=10 max=1000)' value='100'>
 <button onclick='start()'>build</button>
-.........
-<button onclick='clearInterval(loop);loop = setInterval(function(){checkN();life()},speed);'>start</button>
-<button onclick='clearInterval(loop)'>pause</button>
-<button onclick='clearmap()'>clear</button>
-.........
-<input id='save' placeholder='save code'>
-<button onclick='savemap()'>save</button>
-<input id='load' placeholder='load code'>
-<button onclick='loadmap()'>load</button>
+</br></br>
+<input id='save' placeholder='map code'>
+<button onclick='savemap()'>save map</button>
+/
+<input id='load' placeholder='map code'>
+<button onclick='loadmap()'>load map</button>
+</br></br>
+<input id='saveshape' placeholder='shape code'>
+<button onclick='saveshape()'>save shape</button>
+/
+<input id='loadshape' placeholder='shape code'>
+<button onclick='loadshape()'>load shape</button>
+<select name="templates" id="templates">
+  <option value="none">--choose template--</option>
+  <option value="6,33,7,31,7,33,8,21,8,22,8,29,8,30,8,43,8,44,9,20,9,24,9,29,9,30,9,43,9,44,10,9,10,10,10,19,10,25,10,29,10,30,11,9,11,10,11,19,11,23,11,25,11,26,11,31,11,33,12,19,12,25,12,33,13,20,13,24,14,21,14,22">Gosper Glider Gun (down right)</option>
+  <option value="4,18,4,19,5,18,5,19,15,16,15,17,15,21,15,22,17,17,17,21,18,18,18,19,18,20,19,18,19,19,19,20,22,21,23,20,23,21,23,22,24,19,24,23,25,21,26,18,26,24,27,18,27,24,28,19,28,23,29,20,29,21,29,22,38,20,38,21,39,20,39,21">Gosper Glider Gun (up right)</option>
+  <option value="6,7,5,7,5,8,6,9,7,9,8,9,8,10">eater</option>
+</select>
 </br></br></br>
+
+<button onclick='clearInterval(loop);loop = setInterval(function(){checkN();life()},speed);'>START</button>
+<button onclick='clearInterval(loop)'>PAUSE</button>
+<button onclick='clearmap()'>CLEAR</button>
+/
 <button id='select' onclick='select()'>select</button>
 <button id='copy' onclick='copy()'>copy</button>
 <button id='paste' onclick='paste()'>paste</button>
+</br></br>
 <div id='map'></div>
 </br></br>
+
 <script>
 let size = 2000;
 let speed = 100;
 let n = 0;
 let map = Array.from(Array(size), ()=>new Array(size));
+var savedshape = [];
 let savedmap = [];
 let killlist = [];
 let birthlist = [];
@@ -37,10 +54,16 @@ let objsel = [];
 
 function start()
 {
+  sel = false;
+  cop = false;
+  past = false;
   gamemap.innerHTML = '';
   clearInterval(loop);
+
   size = document.getElementById('size').value;
-  speed = document.getElementById('speed').value;init()
+  speed = document.getElementById('speed').value;
+
+  init();
 }
 
 function createCell(i,j)
@@ -53,7 +76,7 @@ function createCell(i,j)
     let cellid = x.id.split(',');
     let celli = parseInt(cellid[0]);
     let cellj = parseInt(cellid[1]);
-    let newcell = [celli,cellj];
+    let newcell = [celli,cellj+1];
     let diff = [];
     let targ = [];
     if (sel)
@@ -74,25 +97,25 @@ function createCell(i,j)
     if (past)
     {
       x.style.cursor = 'default';
+      x.click(function(e){e.preventDefault()});
       diff = [newcell[0] - objsel[0][0],newcell[1] - objsel[0][1]];
-      
       for (let i = 0; i < objsel.length; i++)
       {
-        x.click(function(e){e.preventDefault()});
         let targi = objsel[i][0] + diff[0];
         let targj = objsel[i][1] + diff[1];
         targ = [targi,targj];
         map[targ[0]][targ[1]].checked = true;
       }
-      past = false;
     }
   });
+
   x.addEventListener('mouseover',function()
   {
     if (past){x.style.cursor = 'copy'}
     else if (sel){x.style.cursor = 'pointer'}
     else {x.style.cursor = 'default'}
   });
+
   gamemap.appendChild(x);
   return x
 }
@@ -121,9 +144,39 @@ function clearmap()
   {
     for (let j = 0; j < size; j++)
     {
-      map[i][j].checked = false
+      map[i][j].checked = false;
+      map[i][j].style.opacity = '1';
+      sel = false;
+      cop = false;
+      past = false;
+      objsel = [];
     }
   }
+}
+
+function saveshape()
+{
+  if (objsel.length > 0){document.getElementById('saveshape').value = objsel}
+}
+
+function loadshape()
+{
+  let parsed = [];
+  let joined = [];
+  let drop = document.getElementById('templates');
+  let seldrop = drop.options[drop.selectedIndex].value;
+
+  if (seldrop != 'none'){objsel = seldrop;document.getElementById('loadshape').value = seldrop}
+  else {objsel = document.getElementById('loadshape').value}
+
+  objsel = objsel.split(',');
+  objsel.forEach(function(e){let p = parseInt(e);parsed.push(p)});
+  objsel = parsed;
+  
+  for (let i = 0; i < parsed.length; i+=2){joined.push([parsed[i],parsed[i+1]])};
+  objsel = joined;
+  console.log(objsel);
+  past = true;
 }
 
 function savemap()
@@ -158,23 +211,25 @@ function loadmap()
 
 function select()
 {
+  cop = false;
+  past = false;
+  objsel = [];
   if (!sel){sel = true}
   else
   {
-    sel = false;
     for (let i = 0; i < objsel.length; i++)
     {
       map[objsel[i][0]][objsel[i][1]].style.opacity = '1';
     }
-    objsel = [];
+    sel = false;
   }
 }
 
 function copy()
 {
-  if (!cop)
+  sel = false;
+  if (objsel.length > 0 && !cop)
   {
-    sel = false;
     for (let i = 0; i < objsel.length; i++)
     {
       map[objsel[i][0]][objsel[i][1]].style.opacity = '1';
@@ -186,8 +241,9 @@ function copy()
 
 function paste()
 {
-  if (!past && cop){past = true;cop = false;sel = false}
-  else {past = false;sel = false}
+  sel = false;
+  if (!past && cop){past = true;cop = false}
+  else {past = false}
 }
 
 function checkN()
@@ -218,6 +274,8 @@ function life()
   killlist = [];
   birthlist = []
 }
+
+start();
 </script>
 </body>
 </html>
