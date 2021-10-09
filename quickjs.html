@@ -1,0 +1,68 @@
+<canvas></canvas>
+</br></br>
+<textarea spellcheck='false'></textarea>
+</br></br>
+<button onclick='mem.setItem("code",t.value);eval(t.value)'>></button>
+<script>
+//STYLE
+let c=document.querySelector('canvas'),t=document.querySelector('textarea'),b=document.querySelector('button');
+let ctx=c.getContext('2d');
+let colors={bg:'#343434',txt:'#545454',but:'#909090'}
+document.body.style.backgroundColor=colors.bg;
+let S=c.height=c.width=300;
+c.style.border='1px solid darkGrey';
+c.style.borderRadius=t.style.borderRadius=b.style.borderRadius='5px';
+t.style.backgroundColor=colors.txt;
+t.style.color='white'
+t.style.outline='none';
+t.style.width='300px';
+b.style.backgroundColor=colors.but;
+
+//SESSION BACKUP
+let mem=this.sessionStorage;
+t.value=mem.getItem('code');
+
+//IMG BUF
+let img=ctx.createImageData(S,S);
+let buf=new Uint32Array(img.data.buffer);
+let frame;
+
+//FUNCTIONS
+let set=(x,y,r=255,g=255,b=255,a=255)=>{buf[y*S+x] = (a << 24) | (b << 16) | (g << 8) | r}
+let draw=()=>ctx.putImageData(img,0,0);
+let check=(x,y)=>{if (buf[y*S+x]==0) return 0;else return 1}
+let dump=()=>{img=ctx.createImageData(S,S);buf=new Uint32Array(img.data.buffer)}
+
+let forAll=(e)=>{for (let y=0;y<S;y++){for (let x=0;x<S;x++){eval(e(x,y))}}};
+
+function autoclose(form,str)
+{
+	if (form.selectionStart == form.value.length)
+  {
+  	form.value+=(str); 
+    form.selectionStart-=1; 
+    form.selectionEnd-=1;
+  }
+	else
+  {
+  	let start=form.value.substring(0,form.selectionStart);
+  	let end=form.value.substring(form.selectionStart,form.value.length);
+    let endl=form.value.length - end.length;
+  	form.value=start+str+end;
+    form.selectionStart=endl;
+    form.selectionEnd=endl;
+  }
+}
+
+//EVENTS
+document.addEventListener('keydown',(e)=>
+{
+	if (e.key == "'") autoclose(t,"'");
+  if (e.key == '"') autoclose(t,'"');
+  if (e.key == '(') autoclose(t,')');
+  if (e.key == '[') autoclose(t,']');
+  if (e.key == '{') autoclose(t,'}');
+	
+  if (e.key == 'Tab'){e.preventDefault(); autoclose(t,'  '); t.selectionStart+=2}
+});
+</script>
