@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="style.css">
+        <title>System D</title>
+    </head>
+
+    <body>
+        <div id='UI'>
+            <div>
+              TIME<br><input type='range' id='simspeed' value='0.1' min='-1' max='1' step='0.05'>
+            </div>
+            <div>
+              GRAVITY<br><input type='range' id='gstrength' value='10' min='0' max='20' step='1'>
+            </div>
+            <br>
+            <div>
+              BODY :<br>
+              <br>
+              <form id='form' onsubmit='return false;'>
+                  Name<br><input type='text' id='bodyName'/><br>
+                  Color<br><input type='text' id='bodyColor'/><br>
+                  Size<br><input type='text' id='bodySize'/><br>
+                  Mass<br><input type='text' id='bodyMass'/><br>
+                  Position X<br><input type='text' id='bodyPosX'/><br>
+                  Position Y<br><input type='text' id='bodyPosY'/><br>
+                  Velocity X<br><input type='text' id='bodyVelX'/><br>
+                  Velocity Y<br><input type='text' id='bodyVelY'/><br>
+                  <br>
+                  <input value='New Body' type='submit' onclick='newBody();'/>
+                  <input value='Modify' type='submit' onclick='modifyBody();'/>
+              </form>
+            </div>
+            <br>
+            <input value='New System' type='submit' onclick='bodies=[];'/>
+            <br>
+            <input value='Save System' type='submit' onclick='saveSystem();'/>
+            <br>
+            <input value='Load System' type='submit' onclick='loadSystem();'/>
+            <br>
+            <input type='text' id='saveCode'/><br>
+            
+        </div>
+        
+        <div>
+            <canvas id='screen' width=250 height=250></canvas>
+        </div>
+        <script src="main.js"></script>
+    </body>
+</html>

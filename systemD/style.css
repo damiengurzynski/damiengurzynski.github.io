@@ -1,0 +1,22 @@
+html
+{
+  background-color: black;
+  color: white;
+  font-family: monospace;
+}
+
+body
+{
+  display: flex;
+}
+
+#screen
+{
+  border: 1px solid white;
+}
+
+#UI
+{
+  margin-left: 10px;
+  margin-right: 20px;
+}
