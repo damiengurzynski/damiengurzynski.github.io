@@ -1,0 +1,4 @@
+[x] better compass
+[x] sun course
+[x] stars
+[x] flat color style
