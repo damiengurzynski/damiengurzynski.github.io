@@ -1,0 +1,25 @@
+30/12/23
+
+FPS counter
+General cleanup and comments
+Sorta solved near clipping
+Added fps kb controls (WASD + arrows)
+
+27/12/23
+
+Moved rotation function in Tri
+
+
+23/12/23
+
+Full screen resizable canvas
+
+
+22/12/23
+
+Main engine
+Tris
+Tris rotation
+Meshes made of Tris
+Mesh rotation
+Back-face culling
