@@ -120,13 +120,13 @@ document.addEventListener("keydown", function(e)
     }
 
     //debug
-    // console.clear();
-    // console.log(dstack);
-    // console.log(rstack);
-    // console.log(pstack);
-    // console.log(rawinput);
-    // console.log(program);
-    // console.log(pc);
+    console.clear();
+    console.log('dstack '+dstack);
+    console.log('rstack '+rstack);
+    console.log('pstack '+pstack);
+    console.log('rawinput '+rawinput);
+    console.log('program '+program);
+    console.log('pc '+pc);
 });
 
 //character display
