@@ -1,0 +1,28 @@
+body
+{
+    background-color: black;
+    text-align: center;
+}
+
+#gameArea
+{
+    background-color: rgb(0, 0, 200);
+}
+
+#score
+{
+    font-family: monospace;
+    color: white;
+    margin-top: 100px;
+    margin-bottom: 3px;
+    margin-left: 310px;
+    opacity: 0.7;
+}
+
+#bestScore
+{
+    font-family: monospace;
+    color: white;
+    margin-top: 10px;
+    opacity: 0.7;
+}
