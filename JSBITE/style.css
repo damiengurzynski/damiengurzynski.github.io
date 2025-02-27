@@ -1,0 +1,192 @@
+body
+{
+    background-color: black;
+    color: rgb(200, 200, 200);
+    text-align: center;
+    font-family: monospace;
+}
+
+a
+{
+    color: rgb(118, 118, 118);
+}
+
+a:hover
+{
+    color: rgb(200, 200, 200);
+}
+
+hr
+{
+    color: rgb(118, 118, 118);
+    background-color: rgb(118, 118, 118);
+    height: 1px;
+    border: none;
+    width: 150px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+/* PAYPAL */
+#paypal
+{
+    margin-right: 10px;
+    float: right;
+    width: 100px;
+}
+
+/* SITE LOGO */
+#logo
+{
+    margin-top: 40px;
+    font-weight: bolder;
+    display: inline-block;
+}
+#logo:hover
+{
+    cursor: pointer;
+}
+
+/* DONATE */
+#donate
+{
+    background-color: black;
+    color: rgb(118, 118, 118);
+    border: 1px solid;
+    border-radius: 5px;
+    font-family: monospace;
+}
+#donate:hover
+{
+    color: rgb(200, 200, 200);
+    cursor: pointer;
+}
+
+
+/* SUBMIT */
+#submit
+{
+    margin-top: 20px;
+    color: rgb(118, 118, 118);
+}
+
+
+/* SEARCHBAR */
+/* wrapper */
+#searchwrap
+{
+    top: 10px;
+    left: 10px;
+    position: fixed;
+    display: block;
+}
+
+/* bar */
+#searchbar
+{
+    background-color: black;
+    color: rgb(118, 118, 118);
+    border: 1px solid rgb(118, 118, 118);
+    border-radius: 5px;
+    padding-left: 5px;
+    cursor: pointer;
+    font-family: monospace;
+    width: 110px;
+}
+#searchbar:hover
+{
+    border-color: rgb(200, 200, 200);
+}
+#searchbar:focus
+{
+    outline: none;
+    color: rgb(200, 200, 200);
+    border-color: rgb(200, 200, 200);
+    cursor: text;
+}
+
+/* button */
+#searchbutton
+{
+    background-color: black;
+    color: rgb(118, 118, 118);
+    border: 1px solid;
+    border-radius: 5px;
+    font-family: monospace;
+}
+#searchbutton:hover
+{
+    cursor: pointer;
+    color: rgb(200, 200, 200);
+}
+#searchbutton:active
+{
+    color: rgb(118, 118, 118);
+}
+
+
+/* BITES */
+/* main wrapper */
+#bites
+{
+    margin-top: 0px;
+}
+
+/* bite wrapper */
+.bite
+{
+    margin-top: 0px;
+}
+
+#title
+{
+    font-weight: bold;
+}
+
+/* code area */
+textarea
+{
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: black;
+    color: rgb(118, 118, 118);
+    overflow: hidden;
+    width: 300px;
+    height: 50px;
+    cursor: pointer;
+}
+textarea:hover
+{
+    border-color: rgb(200, 200, 200);
+}
+textarea:focus
+{
+    outline: none;
+    border-color: rgb(200, 200, 200);
+    color:rgb(200, 200, 200);
+    cursor: text;
+}
+
+/* preview */
+iframe
+{
+    font-family: monospace;
+    border: none;
+    resize: both;
+    border: 1px solid rgb(118, 118, 118);
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 300px;
+    height: 100px;
+    overflow: hidden;
+}
+
+iframe:hover
+{
+    border-color: rgb(200, 200, 200);
+}
