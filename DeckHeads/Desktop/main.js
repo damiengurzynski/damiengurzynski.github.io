@@ -87,6 +87,7 @@ function shuffleSelectedCards() {
     selectedCards.forEach((card, index) => {
       card.setPosition(mouse.x, mouse.y);
       card.div.style.zIndex = highestZIndex - rand(0,selectedCards.length);
+      card.div.style.color = 'black';
     });
   }
 }
