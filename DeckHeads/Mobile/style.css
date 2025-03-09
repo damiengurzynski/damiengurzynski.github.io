@@ -1,0 +1,32 @@
+body
+{
+  background-color: black;
+  color: white;
+  font-family: monospace;
+  text-align: center;
+}
+
+.card
+{
+  color: black;
+  position: absolute;
+  width: 40px;
+  height: 60px;
+  border: 1px solid white;
+  border-radius: 3px;
+  font-size: 10px;
+  text-align: center;
+  line-height: 55px;
+  vertical-align: baseline;
+  background-color: black;
+  cursor: grab;
+}
+
+.selectionbox
+{
+  background-color: rgba(255,128,0,.3);
+  position: absolute;
+  border: 1px solid orange;
+  height: 0px;
+  width: 0px;
+}
