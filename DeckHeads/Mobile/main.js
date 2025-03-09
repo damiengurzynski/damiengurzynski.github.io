@@ -99,6 +99,7 @@ function shuffleSelectedCards() {
     selectedCards.forEach(card => {
       card.setPosition(touch.x, touch.y);
       card.div.style.zIndex = highestZIndex - rand(0, selectedCards.length);
+      card.div.style.color = 'black';
     });
   }
 }
