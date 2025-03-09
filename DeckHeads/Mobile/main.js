@@ -111,6 +111,7 @@ function init() {
 
 // EVENT LISTENERS
 document.addEventListener('touchstart', (e) => {
+  e.preventDefault();
   if (!touch.target) {
     deck.forEach(card => {
       card.selected = false;
@@ -129,6 +130,7 @@ document.addEventListener('touchstart', (e) => {
 });
 
 document.addEventListener('touchmove', (e) => {
+  e.preventDefault();
   touch.x = e.touches[0].clientX;
   touch.y = e.touches[0].clientY;
   
@@ -170,7 +172,7 @@ document.addEventListener('touchmove', (e) => {
 
   if (Math.abs(touch.x - touch.lastX) > 20 || Math.abs(touch.y - touch.lastY) > 20) {
     touch.shakeCount++;
-    if (touch.shakeCount >= 5 && touch.drag) {
+    if (touch.shakeCount >= 3 && touch.drag) {
       shuffleSelectedCards();
       touch.shakeCount = 0;
     }
