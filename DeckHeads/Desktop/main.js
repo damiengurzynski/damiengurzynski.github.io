@@ -194,8 +194,8 @@ document.addEventListener('mouseup', () => {
 });
 
 // RUNTIME
-//[...Array(10)].forEach((_, i) => suits.forEach(suit => new Card(`${i + 1} ${suit}`)));
-//['V', 'D', 'R'].forEach(rank => suits.forEach(suit => new Card(`${rank} ${suit}`)));
+[...Array(10)].forEach((_, i) => suits.forEach(suit => new Card(`${i + 1} ${suit}`)));
+['V', 'D', 'R'].forEach(rank => suits.forEach(suit => new Card(`${rank} ${suit}`)));
 ['J', 'J'].forEach(joker => new Card(joker));
 
 init();
