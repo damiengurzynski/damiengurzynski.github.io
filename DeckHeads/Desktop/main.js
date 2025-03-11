@@ -93,10 +93,21 @@ function shuffleSelectedCards() {
 }
 
 function init() {
+  let saveddeck = JSON.parse(localStorage.getItem('deck'));
+
+  if (saveddeck != null) {
+    deck = saveddeck.map(cardData => {
+      let card = new Card(cardData.value);
+      card.setPosition(cardData.pos.x, cardData.pos.y);
+      return card;
+    });
+  }
+
   deck.forEach(e => {
     draw.appendChild(e.div);
   });
 }
+
 // EVENT LISTENERS
 document.addEventListener('mousedown', (e) => {
   e.preventDefault();
@@ -183,8 +194,14 @@ document.addEventListener('mouseup', () => {
 });
 
 // RUNTIME
-[...Array(10)].forEach((_, i) => suits.forEach(suit => new Card(`${i + 1} ${suit}`)));
-['V', 'D', 'R'].forEach(rank => suits.forEach(suit => new Card(`${rank} ${suit}`)));
+//[...Array(10)].forEach((_, i) => suits.forEach(suit => new Card(`${i + 1} ${suit}`)));
+//['V', 'D', 'R'].forEach(rank => suits.forEach(suit => new Card(`${rank} ${suit}`)));
 ['J', 'J'].forEach(joker => new Card(joker));
 
 init();
+
+setInterval(() => {
+  localStorage.removeItem('deck');
+  localStorage.setItem('deck', JSON.stringify(deck));
+  console.log('Session Saved');
+}, 10000);
