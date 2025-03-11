@@ -105,6 +105,16 @@ function shuffleSelectedCards() {
 }
 
 function init() {
+  let saveddeck = JSON.parse(localStorage.getItem('deck'));
+
+  if (saveddeck != null) {
+    deck = saveddeck.map(cardData => {
+      let card = new Card(cardData.value);
+      card.setPosition(cardData.pos.x, cardData.pos.y);
+      return card;
+    });
+  }
+
   deck.forEach(e => {
     draw.appendChild(e.div);
   });
@@ -198,3 +208,9 @@ document.addEventListener('touchend', () => {
 ['J', 'J'].forEach(joker => new Card(joker));
 
 init();
+
+setInterval(() => {
+  localStorage.removeItem('deck');
+  localStorage.setItem('deck', JSON.stringify(deck));
+  console.log('Session Saved');
+}, 10000);
