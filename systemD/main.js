@@ -192,7 +192,7 @@ function help()
   \n\n
   [Save System] : Generates a 'save code' in the box below, copy and paste it somewhere for safekeeping
   \n\n
-  [Load System] : Paste a 'save code' in the input box and press this to load it`
+  [Load System] : Paste a 'save code' in the input box and press this to load it`);
 }
 
 
