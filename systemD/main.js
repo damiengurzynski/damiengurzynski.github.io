@@ -170,6 +170,31 @@ function modifyBody()
   selectedBody.vel.y = Number(body_vely.value);
 }
 
+function help()
+{
+  alert(`A questionably accurate star system simulator.
+  \n\n
+  / Shortkeys /
+  \n\n
+  Start/Stop simulation : Move the map around <,> : Zoom in <;> : Zoom out
+  \n\n
+  / Interface /
+  \n\n
+  TIME (slider) : simulation speed
+  \n\n
+  GRAVITY (slider) : gravitational constant (strength)
+  \n\n
+  BODY : Fill the parameters then click [New Body] to create a new body on screen
+  \n\n
+  [Modify] : Click a body on screen (it will highlight when selected), it's parameters will show in the left boxes, you can modify any of them and click [Modify] to apply the changes
+  \n\n
+  [New System] : Create a blank system (! erases current system)
+  \n\n
+  [Save System] : Generates a 'save code' in the box below, copy and paste it somewhere for safekeeping
+  \n\n
+  [Load System] : Paste a 'save code' in the input box and press this to load it`
+}
+
 
 //EVENT LISTENERS
 screen.addEventListener('mousemove', e =>
