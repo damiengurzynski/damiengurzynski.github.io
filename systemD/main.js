@@ -172,7 +172,7 @@ function modifyBody()
 
 function help()
 {
-  alert("<Space> : Start/Stop simulation\n\n<Arrow Keys> : Move the map around\n\n<,> : Zoom in\n\n<;> : Zoom out\n\nTIME (slider) : simulation speed\n\nGRAVITY (slider) : gravitational constant (strength)\n\nBODY : Fill the parameters then click [New Body] to create a new body on screen\n\n[Modify] : Click a body on screen (it will highlight when selected), it's parameters will show in the left boxes, you can modify any of them and click [Modify] to apply the changes\n\n[New System] : Create a blank system (! erases current system)\n\n[Save System] : Generates a 'save code' in the box below, copy and paste it somewhere for safekeeping\n\n[Load System] : Paste a 'save code' in the input box and press this to load it");
+  alert("<Space> : Start/Stop simulation\n<Arrow Keys> : Move the map around\n<,> : Zoom in\n<;> : Zoom out\nTIME (slider) : simulation speed\nGRAVITY (slider) : gravitational constant (strength)\nBODY : Fill the parameters then click [New Body] to create a new body on screen\n[Modify] : Click a body on screen (it will highlight when selected), it's parameters will show in the left boxes, you can modify any of them and click [Modify] to apply the changes\n[New System] : Create a blank system (! erases current system)\n[Save System] : Generates a 'save code' in the box below, copy and paste it somewhere for safekeeping\n[Load System] : Paste a 'save code' in the input box and press this to load it");
 }
 
 
